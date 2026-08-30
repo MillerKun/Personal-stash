@@ -1,0 +1,29 @@
+site_name: GDC 中文知识库
+site_description: 每日精选GDC视频和中英对照文章
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+nav:
+  - 首页: index.md
+  - 业界经典必读:
+    - 《门的难题》：用一扇门看懂游戏开发全工种: articles/The_Door_Problem.md
+    - 《榨干它，不然就扔掉》：什么是“打击感”与“果汁感”？: articles/Juice_It_Or_Lose_It.md
+  - GDC 演讲:
+    - 你（可能）不需要一个XX的发行商 (原味翻译): videos/2016-09-26_You_Don_t_Need_a_F_ing_Publisher.md
+    - 🔥你（可能）不需要一个XX的发行商 (AI深度精编版): videos/2016-09-26_You_Don_t_Need_a_F_ing_Publisher_AI_Edition.md
+    - 🔥《空洞骑士》的开发历程剖析 (AI深度精编版): videos/2018-03-01_The_Making_of_Hollow_Knight_AI_Edition.md
+    - 🔥《TUNIC》关卡设计：将“秘密”作为奖励 (AI深度精编版): videos/2023-03-22_Tunic_Level_Design.md
+    - 🔥《三角洲行动》跨端关卡设计与世界构建 (腾讯 TiMi): videos/2024-03-20_Delta_Force_Level_Design.md
+    - 📈 “克里斯体系”：基于数据的独立游戏 Steam 发行与营销标准 (完整翻译版): videos/2023-03-24_Chris_Zukowski_Indie_Marketing_Framework.md
