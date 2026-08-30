@@ -4,71 +4,61 @@ hide:
   - toc
 ---
 
-# 🎮 欢迎来到 GDC 中文私人智库
+# 🎮 欢迎来到游戏开发与 GDC 中文私人智库
 
-> 这是您的专属游戏开发知识库。所有长达一小时的晦涩英文演讲，都在这里被 AI 转化为**“高浓度精编 + 完整折叠原稿”**的深度中文专栏。
-
-这里沉淀了全球最顶尖游戏开发者的经验总结。告别干瘪的机翻字幕，用最顶级的效率吸收游戏开发知识。
+> 这是您的专属游戏开发知识库。汇聚全球顶尖 GDC 演讲与业界经典文献，所有长文均已转化为**“高浓度精编 + Mermaid 架构图 + 完整折叠原稿”**的双层深度专栏。
 
 ---
 
-## 🌟 近期精选解析
+## 🌟 业界经典必读 (Industry Classics)
 
 <div class="grid cards" markdown>
 
--   :material-sword-cross: **关卡设计与解谜**
+-   :material-mushroom: **任天堂“起承转合”关卡法**
     
     ---
     
-    揭开《TUNIC》视错觉背后的设计哲学，探讨“知识即进度”的独立游戏门控机制。
+    不用一句文字教程，马力欧如何通过四段式东亚诗歌心流结构教会全球几亿人玩游戏？
     
-    [:octicons-arrow-right-24: 立即阅读](videos/2023-03-22_Tunic_Level_Design.md)
+    [:octicons-arrow-right-24: 立即阅读](articles/Nintendo_Kishotenketsu_Level_Design.md)
 
--   :material-skull: **神作复盘与工作流**
-
-    ---
-    
-    仅凭 3 个人如何构建庞大的圣巢？拆解《空洞骑士》的 PlayMaker 状态机与美术管线。
-    
-    [:octicons-arrow-right-24: 立即阅读](videos/2018-03-01_The_Making_of_Hollow_Knight_AI_Edition.md)
-
--   :material-currency-usd: **独立游戏发行指南**
+-   :material-fire: **《DOOM》推击战斗论**
 
     ---
     
-    Devolver Digital 创始人亲授：你真的需要发行商吗？独立开发者找发行的避坑指南。
+    告别躲在矮墙后喘气回血！拆解“进攻即治疗”的狂暴闭环与幕后 AI 攻击发牌机制。
     
-    [:octicons-arrow-right-24: 立即阅读](videos/2016-09-26_You_Don_t_Need_a_F_ing_Publisher_AI_Edition.md)
+    [:octicons-arrow-right-24: 立即阅读](articles/Doom_2016_Push_Forward_Combat.md)
 
--   :material-crosshairs: **跨端战术与工程架构**
-
-    ---
-    
-    腾讯 TiMi 团队亲授：《三角洲行动》如何在 PC 与移动端之间实现绝对公平的掩体关卡设计。
-    
-    [:octicons-arrow-right-24: 立即阅读](videos/2024-03-20_Delta_Force_Level_Design.md)
-
--   :material-chart-bell-curve-cumulative: **Steam 发行与商业基准**
+-   :material-sword: **《暗黑破坏神2》掉落心理学**
 
     ---
     
-    独立游戏营销教父 Chris Zukowski 体系全解析：从“7000愿望单法则”到品类选择生死线。
+    装备驱动 ARPG 鼻祖的随机数哲学：四步嵌套过滤链与让玩家刷上千小时的变率强化模型。
     
-    [:octicons-arrow-right-24: 立即阅读](videos/2023-03-24_Chris_Zukowski_Indie_Marketing_Framework.md)
+    [:octicons-arrow-right-24: 立即阅读](articles/Diablo_2_Loot_Psychology_And_RNG.md)
 
--   :material-book-open-variant: **业界经典必读：门的难题**
+-   :material-cards-playing-outline: **《杀戮尖塔》卡牌数值架构**
 
     ---
     
-    游戏圈流传最广的科普名篇。看看为了在游戏里做一扇普通的门，全工作室的各个工种都要掉多少头发。
+    肉鸽卡牌构筑开山鼻祖：乘法协同模型、能量经济学与动态防套路敌人设计。
+    
+    [:octicons-arrow-right-24: 立即阅读](articles/Slay_The_Spire_Card_Synergy_And_Balance.md)
+
+-   :material-door: **经典科普：门的难题**
+
+    ---
+    
+    一扇看似简单的门，如何让创意总监、系统策划、程序、特效与 QA 测试员全体抓狂？
     
     [:octicons-arrow-right-24: 立即阅读](articles/The_Door_Problem.md)
 
--   :material-flash: **独立游戏手感圣经：榨干它**
+-   :material-flash: **手感圣经：榨干它！**
 
     ---
     
-    Juice It or Lose It！只需 12 步，看作者如何把一个最无聊的打砖块 Demo 变成让人肾上腺素飙升的爽游。
+    Juice It or Lose It！12 步手感调教工序，看作者如何把最无聊的打砖块变成肾上腺素爽游。
     
     [:octicons-arrow-right-24: 立即阅读](articles/Juice_It_Or_Lose_It.md)
 
@@ -76,16 +66,95 @@ hide:
 
 ---
 
-## 🤖 知识库如何运作？
+## 🏆 GDC 顶级演讲深度复盘 (Featured Talks)
 
-这是一个由 **“人机协作”** 驱动的永久存续网站。您是主编，我是您的专属编辑。
+<div class="grid cards" markdown>
 
-您只需要随时对您的 AI 助理下达指令：
+-   :material-sword-cross: **《死亡细胞》动作设计**
+    
+    ---
+    
+    郊狼时间、输入缓冲、攻击吸附——如何用代码编造善意谎言，让手残玩家感觉自己是微操大师。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2019-03-20_Dead_Cells_Combat_Design.md)
 
-> 💬 *"帮我找一篇关于虚幻引擎光追优化的 GDC 演讲放进去。"*
-> 
-> 💬 *"我对肉鸽游戏 (Roguelike) 的经济系统设计感兴趣，来一篇深度解析！"*
-> 
-> 💬 *"把这个指定的 YouTube 视频链接整理成万字干货。"*
+-   :material-run-fast: **《蔚蓝》平台跳跃黑魔法**
 
-我会立刻为您跑通抓取、翻译、提炼和排版的整个流水线，将最新的知识成果无缝“塞”进这里的导航栏中，供您随时翻阅。
+    ---
+    
+    角落校正、滞空重力衰减、冲刺吸附——解密高难度硬核游戏背后 30 多个偷偷给玩家作弊的算法。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2019-03-23_Celeste_Platforming_Physics_And_Assists.md)
+
+-   :material-brain: **《极乐迪斯科》叙事工程学**
+
+    ---
+    
+    24 个技能人格在脑内争吵、思维阁内省机制、百万字网状文本的防分支爆炸管理。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2020-03-18_Disco_Elysium_Narrative_Architecture.md)
+
+-   :material-fish: **《潜水员戴夫》混合循环设计**
+
+    ---
+    
+    深海探索 Roguelite + 寿司店经营 Tycoon：双循环资源互哺架构与 30 小时多巴胺节拍把控。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2024-03-21_Dave_The_Diver_Hybrid_Game_Loop.md)
+
+-   :material-video-vintage: **《战神4》一镜到底技术全揭秘**
+
+    ---
+    
+    全程 0 剪辑！索尼圣莫尼卡如何在无缝长镜头下完美融合 3A 叙事、战斗与后台加载。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2019-03-22_God_Of_War_No_Cut_Camera.md)
+
+-   :material-compass: **《艾尔登法环》开放世界引力法则**
+
+    ---
+    
+    彻底摒弃雷达与问号！黄金树超级地标、三角形视线遮蔽法则与微观赐福金光引导。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2022-03-24_Elden_Ring_Open_World_Guidance.md)
+
+-   :material-skull: **《空洞骑士》开发历程剖析**
+
+    ---
+    
+    3 个人如何构建庞大圣巢？PlayMaker 视觉化状态机 AI 搭建与视差滚动美术管线。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2018-03-01_The_Making_of_Hollow_Knight_AI_Edition.md)
+
+-   :material-crosshairs: **《三角洲行动》跨端关卡构建**
+
+    ---
+    
+    腾讯 TiMi 团队亲授：如何在 PC 与移动端之间实现绝对公平的掩体设计与 Houdini PCG 生成。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2024-03-20_Delta_Force_Level_Design.md)
+
+-   :material-chart-bell-curve-cumulative: **克里斯体系：Steam 发行标准**
+
+    ---
+    
+    独立游戏营销教父 Chris Zukowski 体系全解析：从“7000愿望单法则”到品类选择生死线。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2023-03-24_Chris_Zukowski_Indie_Marketing_Framework.md)
+
+-   :material-currency-usd: **独立游戏发行避坑指南**
+
+    ---
+    
+    Devolver Digital 创始人亲授：你真的需要发行商吗？独立开发者找发行的自我评估决策树。
+    
+    [:octicons-arrow-right-24: 立即阅读](videos/2016-09-26_You_Don_t_Need_a_F_ing_Publisher_AI_Edition.md)
+
+</div>
+
+---
+
+## 🤖 自动化智库运作模式
+
+本智库完全由 AI 智能代理驱动。您只需下达指令（提供游戏名字、话题、或 YouTube 链接），AI 就会全自动完成：
+**内容提炼 ➔ 流程图重构 ➔ 导航更新 ➔ Git 提交 ➔ GitHub Pages 全网自动部署**。
