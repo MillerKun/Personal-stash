@@ -14,6 +14,14 @@ hide:
 
 <div class="grid cards" markdown>
 
+-   :material-target-account: **🔥 特别企划：非对称微恐 FPS 关卡实战手册**
+    
+    ---
+    
+    量身定制：《猎杀：对决》声学陷阱 + 《进化2》立体非对称动线 + 空间心理学开工指南。
+    
+    [:octicons-arrow-right-24: 立即阅读](articles/Asymmetric_Horror_FPS_Level_Design.md)
+
 -   :material-mushroom: **任天堂“起承转合”关卡法**
     
     ---

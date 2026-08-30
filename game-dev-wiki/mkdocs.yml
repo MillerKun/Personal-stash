@@ -18,6 +18,7 @@ markdown_extensions:
 nav:
   - 首页: index.md
   - 业界经典必读:
+    - 🎯《非对称微恐 FPS 关卡实战手册》(猎杀对决+进化2): articles/Asymmetric_Horror_FPS_Level_Design.md
     - 《门的难题》：用一扇门看懂游戏开发全工种: articles/The_Door_Problem.md
     - 《榨干它，不然就扔掉》：什么是“打击感”与“果汁感”？: articles/Juice_It_Or_Lose_It.md
     - 🍄 任天堂“起承转合”关卡设计法 (马力欧无字教学): articles/Nintendo_Kishotenketsu_Level_Design.md
