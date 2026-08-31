@@ -1,9 +1,9 @@
-html_content = """<!DOCTYPE html>
+﻿html_content = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 游戏设计艺术 (第2版) - 沉浸式互动学习</title>
+    <title>馃幃 娓告垙璁捐鑹烘湳 (绗?鐗? - 娌夋蹈寮忎簰鍔ㄥ涔?/title>
     <style>
         :root {
             --bg-color: #f5f5f7;
@@ -42,7 +42,7 @@ html_content = """<!DOCTYPE html>
         
         /* Images Pane */
         #pdf-pane { flex: 2; position: relative; border-right: 1px solid var(--border-color); background: #dcdcdc; overflow-y: auto; text-align: center; scroll-behavior: smooth; --img-scale: 100%; padding-top: 10px;}
-        .page-img { width: var(--img-scale); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background-color: white; transition: width 0.2s ease;}
+        .page-img { width: var(--img-scale); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background-color: white; transition: width 0.2s ease; aspect-ratio: 2126/2938; }
         
         /* Zoom Controls */
         .zoom-controls { position: sticky; top: 10px; z-index: 100; display: inline-flex; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 20px; align-items: center; gap: 10px; margin-bottom: -40px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); backdrop-filter: blur(5px);}
@@ -94,29 +94,18 @@ html_content = """<!DOCTYPE html>
         .c-text { margin: 5px 0 0 0; color: #444; white-space: pre-wrap; line-height: 1.4;}
         
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            #main-layout { flex-direction: column; height: auto; }
-            body { overflow: auto; height: auto; }
-            #sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); max-height: 30vh; }
-            #pdf-pane { border-right: none; border-bottom: 1px solid var(--border-color); min-height: 50vh; overflow-y: visible;}
-            #tools-pane { min-width: 100%; max-width: 100%; }
-            .zoom-controls { bottom: 10px; top: auto; position: fixed; right: 10px; margin-bottom: 0; }
-        }
-
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🎮 游戏设计艺术 (第2版) - 沉浸式互动学习</h1>
+        <h1>馃幃 娓告垙璁捐鑹烘湳 (绗?鐗? - 娌夋蹈寮忎簰鍔ㄥ涔?/h1>
     </header>
 
     <div id="main-layout">
         <div id="sidebar">
             <div class="search-box">
-                <input type="text" id="search" placeholder="搜索章节..." onkeyup="renderChapters()">
+                <input type="text" id="search" placeholder="鎼滅储绔犺妭..." onkeyup="renderChapters()">
             </div>
             <div id="chapter-list"></div>
         </div>
@@ -134,13 +123,13 @@ html_content = """<!DOCTYPE html>
         
         <div id="tools-pane">
             <div class="tools-header">
-                <h3 id="tools-chapter-title" style="margin: 0; font-size: 1.1rem; color: var(--primary-color);">第1章</h3>
-                <button id="btn-learn-toggle" class="btn-learned" onclick="toggleLearned()">📖 标记已学</button>
+                <h3 id="tools-chapter-title" style="margin: 0; font-size: 1.1rem; color: var(--primary-color);">绗?绔?/h3>
+                <button id="btn-learn-toggle" class="btn-learned" onclick="toggleLearned()">馃摉 鏍囪宸插</button>
             </div>
             
             <div class="tools-nav">
-                <button class="tab-btn active" onclick="switchTab('lenses')">🔍 本章透镜</button>
-                <button class="tab-btn" onclick="switchTab('qa')">📝 问答探讨</button>
+                <button class="tab-btn active" onclick="switchTab('lenses')">馃攳 鏈珷閫忛暅</button>
+                <button class="tab-btn" onclick="switchTab('qa')">馃摑 闂瓟鎺㈣</button>
             </div>
             
             <div class="tools-content">
@@ -152,18 +141,7 @@ html_content = """<!DOCTYPE html>
 
 <script>
     // Hardcoded simple mapping for first few chapters of Art of Game Design
-    const chapters = [
-        { id: 1, title: "第1章：太初之时，有设计师", page: 1 },
-        { id: 2, title: "第2章：设计师创造体验", page: 11 },
-        { id: 3, title: "第3章：体验发生于场地", page: 19 },
-        { id: 4, title: "第4章：体验从游戏中诞生", page: 25 },
-        { id: 5, title: "第5章：游戏由元素构成", page: 39 },
-        { id: 6, title: "第6章：元素支撑着主题", page: 51 },
-        { id: 7, title: "第7章：游戏始于一个理念", page: 61 },
-        { id: 8, title: "第8章：游戏通过迭代提高", page: 73 },
-        { id: 9, title: "第9章：游戏为玩家而生", page: 91 },
-        { id: 10, title: "第10章：体验在玩家的脑中", page: 107 }
-    ];
+    const chapters = __CHAPTERS_PLACEHOLDER__;
 
     const pageToChapter = {};
     for (let i = 0; i < chapters.length; i++) {
@@ -175,13 +153,13 @@ html_content = """<!DOCTYPE html>
     }
 
     const lenses = [
-        { id: 1, chapter: 1, name: "情感透镜", open: true, qs: ["我希望玩家体验到哪些情感？", "他们实际上体验到了什么情感？", "如何缩小两者差距？"] },
-        { id: 2, chapter: 2, name: "本质体验透镜", open: true, qs: ["我希望玩家获得的体验是什么？", "这个体验的核心本质是什么？", "我的游戏如何捕捉这种本质？"] },
-        { id: 3, chapter: 3, name: "场地透镜", open: false, qs: ["玩家会在什么样的环境中玩我的游戏？", "这个环境会对体验产生什么影响？"] },
-        { id: 4, chapter: 4, name: "惊喜透镜", open: false, qs: ["我的游戏在哪些地方能给玩家惊喜？"] },
-        { id: 5, chapter: 4, name: "乐趣透镜", open: true, qs: ["我的游戏好玩吗？为什么？"] },
-        { id: 6, chapter: 5, name: "元素四面体透镜", open: false, qs: ["机制、故事、美学、技术是否协调一致并支持主题？"] },
-        { id: 7, chapter: 6, name: "全息透镜", open: false, qs: ["游戏中的每一个元素是否都反映了整体主题？"] },
+        { id: 1, chapter: 1, name: "鎯呮劅閫忛暅", open: true, qs: ["鎴戝笇鏈涚帺瀹朵綋楠屽埌鍝簺鎯呮劅锛?, "浠栦滑瀹為檯涓婁綋楠屽埌浜嗕粈涔堟儏鎰燂紵", "濡備綍缂╁皬涓よ€呭樊璺濓紵"] },
+        { id: 2, chapter: 2, name: "鏈川浣撻獙閫忛暅", open: true, qs: ["鎴戝笇鏈涚帺瀹惰幏寰楃殑浣撻獙鏄粈涔堬紵", "杩欎釜浣撻獙鐨勬牳蹇冩湰璐ㄦ槸浠€涔堬紵", "鎴戠殑娓告垙濡備綍鎹曟崏杩欑鏈川锛?] },
+        { id: 3, chapter: 3, name: "鍦哄湴閫忛暅", open: false, qs: ["鐜╁浼氬湪浠€涔堟牱鐨勭幆澧冧腑鐜╂垜鐨勬父鎴忥紵", "杩欎釜鐜浼氬浣撻獙浜х敓浠€涔堝奖鍝嶏紵"] },
+        { id: 4, chapter: 4, name: "鎯婂枩閫忛暅", open: false, qs: ["鎴戠殑娓告垙鍦ㄥ摢浜涘湴鏂硅兘缁欑帺瀹舵儕鍠滐紵"] },
+        { id: 5, chapter: 4, name: "涔愯叮閫忛暅", open: true, qs: ["鎴戠殑娓告垙濂界帺鍚楋紵涓轰粈涔堬紵"] },
+        { id: 6, chapter: 5, name: "鍏冪礌鍥涢潰浣撻€忛暅", open: false, qs: ["鏈哄埗銆佹晠浜嬨€佺編瀛︺€佹妧鏈槸鍚﹀崗璋冧竴鑷村苟鏀寔涓婚锛?] },
+        { id: 7, chapter: 6, name: "鍏ㄦ伅閫忛暅", open: false, qs: ["娓告垙涓殑姣忎竴涓厓绱犳槸鍚﹂兘鍙嶆槧浜嗘暣浣撲富棰橈紵"] },
     ];
 
     const qaDB = __QA_DB_PLACEHOLDER__;
@@ -269,7 +247,7 @@ html_content = """<!DOCTYPE html>
                 <div class="chapter-item ${isL ? 'is-learned' : ''} ${isActive ? 'active' : ''}" 
                      onclick="jumpToChapter(${c.id})">
                     <span>${c.title}</span>
-                    ${isL ? '<span style="color:#4caf50">✅</span>' : ''}
+                    ${isL ? '<span style="color:#4caf50">鉁?/span>' : ''}
                 </div>
             `;
         });
@@ -300,10 +278,10 @@ html_content = """<!DOCTYPE html>
         document.getElementById('tools-chapter-title').textContent = c.title;
         const btn = document.getElementById('btn-learn-toggle');
         if (state.learned.includes(id)) {
-            btn.textContent = "✅ 已学";
+            btn.textContent = "鉁?宸插";
             btn.classList.add('active');
         } else {
-            btn.textContent = "📖 标记已学";
+            btn.textContent = "馃摉 鏍囪宸插";
             btn.classList.remove('active');
         }
 
@@ -328,14 +306,14 @@ html_content = """<!DOCTYPE html>
 
     function renderToolsContent(id) {
         const cLenses = lenses.filter(l => l.chapter === id || l.chapter === id - 1 || l.chapter === id + 1).slice(0, 3);
-        let lHtml = cLenses.length ? '' : '<p style="color:#666">本章暂无对应透镜展示。</p>';
+        let lHtml = cLenses.length ? '' : '<p style="color:#666">鏈珷鏆傛棤瀵瑰簲閫忛暅灞曠ず銆?/p>';
         cLenses.forEach(l => {
-            let qs = l.qs.map(q => `<p class="lens-q">💬 ${q}</p>`).join('');
+            let qs = l.qs.map(q => `<p class="lens-q">馃挰 ${q}</p>`).join('');
             lHtml += `
                 <div class="lens-card">
                     <div class="lens-num">${l.id}</div>
                     <h4 class="lens-title">${l.name}</h4>
-                    ${l.open ? '<span class="tag-open">🔓 开放性探讨</span>' : ''}
+                    ${l.open ? '<span class="tag-open">馃敁 寮€鏀炬€ф帰璁?/span>' : ''}
                     <div>${qs}</div>
                 </div>
             `;
@@ -343,7 +321,7 @@ html_content = """<!DOCTYPE html>
         document.getElementById('tab-lenses').innerHTML = lHtml;
 
         const cQA = qaDB.filter(q => q.chapter === id);
-        let qHtml = cQA.length ? '' : '<p style="color:#666">本章暂无测试题。</p>';
+        let qHtml = cQA.length ? '' : '<p style="color:#666">鏈珷鏆傛棤娴嬭瘯棰樸€?/p>';
         cQA.forEach(q => {
             if (q.type === 'obj') {
                 const savedAns = state.answers[q.id];
@@ -356,11 +334,11 @@ html_content = """<!DOCTYPE html>
                     return `<li class="${cls}" onclick="ansObj('${q.id}', ${o.id})">${o.t}</li>`;
                 }).join('');
                 
-                let feedback = savedAns ? `<div class="feedback" style="display:block; background: ${savedAns===q.ans?'rgba(52, 199, 89,0.1)':'rgba(255, 59, 48,0.1)'}; border-left: 3px solid ${savedAns===q.ans?'#34c759':'#ff3b30'}">${savedAns===q.ans?'✅ 正确！':'❌ 错误。'} ${q.exp}</div>` : '';
+                let feedback = savedAns ? `<div class="feedback" style="display:block; background: ${savedAns===q.ans?'rgba(52, 199, 89,0.1)':'rgba(255, 59, 48,0.1)'}; border-left: 3px solid ${savedAns===q.ans?'#34c759':'#ff3b30'}">${savedAns===q.ans?'鉁?姝ｇ‘锛?:'鉂?閿欒銆?} ${q.exp}</div>` : '';
                 
                 qHtml += `
                     <div class="qa-card">
-                        <h4 class="qa-title"><span style="background:rgba(98,0,238,0.1);color:#6200ee;padding:2px 6px;border-radius:3px;font-size:0.8rem;margin-right:8px">客观题</span>${q.text}</h4>
+                        <h4 class="qa-title"><span style="background:rgba(98,0,238,0.1);color:#6200ee;padding:2px 6px;border-radius:3px;font-size:0.8rem;margin-right:8px">瀹㈣棰?/span>${q.text}</h4>
                         <ul class="options">${opts}</ul>
                         ${feedback}
                     </div>
@@ -369,18 +347,18 @@ html_content = """<!DOCTYPE html>
                 const cmts = state.comments[q.id] || [];
                 const cmtHtml = cmts.map(c => `
                     <div class="c-item">
-                        <div><span class="c-author">👤 ${c.user}</span><span class="c-time">${c.time}</span></div>
+                        <div><span class="c-author">馃懁 ${c.user}</span><span class="c-time">${c.time}</span></div>
                         <p class="c-text">${c.txt}</p>
                     </div>
                 `).join('');
                 
                 qHtml += `
                     <div class="qa-card">
-                        <h4 class="qa-title"><span class="tag-open">🔓 开放性</span>${q.text}</h4>
+                        <h4 class="qa-title"><span class="tag-open">馃敁 寮€鏀炬€?/span>${q.text}</h4>
                         <div class="comment-box">
-                            <input type="text" id="usr-${q.id}" class="c-input" placeholder="昵称 (选填)" />
-                            <textarea id="txt-${q.id}" class="c-input" placeholder="写下你的见解..."></textarea>
-                            <button class="btn-submit" onclick="addComment('${q.id}')">发布看法</button>
+                            <input type="text" id="usr-${q.id}" class="c-input" placeholder="鏄电О (閫夊～)" />
+                            <textarea id="txt-${q.id}" class="c-input" placeholder="鍐欎笅浣犵殑瑙佽В..."></textarea>
+                            <button class="btn-submit" onclick="addComment('${q.id}')">鍙戝竷鐪嬫硶</button>
                         </div>
                         <div class="c-list">${cmtHtml}</div>
                     </div>
@@ -398,9 +376,9 @@ html_content = """<!DOCTYPE html>
     }
 
     function addComment(qId) {
-        const u = document.getElementById(`usr-${qId}`).value.trim() || '匿名玩家';
+        const u = document.getElementById(`usr-${qId}`).value.trim() || '鍖垮悕鐜╁';
         const t = document.getElementById(`txt-${qId}`).value.trim();
-        if(!t) return alert("内容不能为空");
+        if(!t) return alert("鍐呭涓嶈兘涓虹┖");
         if(!state.comments[qId]) state.comments[qId] = [];
         state.comments[qId].unshift({ user: u, txt: t, time: new Date().toLocaleString() });
         saveState();
@@ -431,7 +409,12 @@ with open('qa_art.json', 'r', encoding='utf-8') as f:
 qa_js = json.dumps(qa_data, ensure_ascii=False)
 html_content = html_content.replace('__QA_DB_PLACEHOLDER__', qa_js)
 
-with open(r"C:\Users\Eugen\.gemini\antigravity\scratch\game-design-art-study\index.html", "w", encoding="utf-8") as f:
+with open('chapters.json', 'r', encoding='utf-8') as f:
+    chapters_data = json.load(f)
+html_content = html_content.replace('__CHAPTERS_PLACEHOLDER__', json.dumps(chapters_data, ensure_ascii=False))
+
+
+with open(r"index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
 print("Updated index.html for image-based viewing with rich QA and zoom fixes")
