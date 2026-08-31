@@ -1,0 +1,312 @@
+/* 隐藏滚动条与防止移动端弹性过度拉伸 */
+::-webkit-scrollbar {
+    display: none;
+}
+
+html, body {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 高对比度画布鼠标指针 (带黑色描边，白底高亮可见) */
+.canvas-cursor {
+    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 3L17.5 14.5L12 15L15 21L12.5 22L9.5 16L5 19.5V3Z' fill='%230F172A' stroke='%23FFFFFF' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 6 3, auto;
+}
+
+.canvas-grab {
+    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 13V8.5C9 7.67 9.67 7 10.5 7C11.33 7 12 7.67 12 8.5V12M12 8.5C12 7.67 12.67 7 13.5 7C14.33 7 15 7.67 15 8.5V12M15 8.5C15 7.67 15.67 7 16.5 7C17.33 7 18 7.67 18 8.5V13.5M18 10C18 9.17 18.67 8.5 19.5 8.5C20.33 8.5 21 9.17 21 10V16C21 19.87 17.87 23 14 23C10.5 23 8 20.5 7 17.5L5.2 13.8C4.8 13 5.3 12 6.2 12C6.7 12 7.2 12.3 7.5 12.7L9 15V13Z' fill='%23FFFFFF' stroke='%230F172A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, grab !important;
+}
+
+.canvas-grabbing {
+    cursor: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 14V11.5C8 10.67 8.67 10 9.5 10C10.33 10 11 10.67 11 11.5V13M11 11.5C11 10.67 11.67 10 12.5 10C13.33 10 14 10.67 14 11.5V13M14 11.5C14 10.67 14.67 10 15.5 10C16.33 10 17 10.67 17 11.5V14M17 12.5C17 11.67 17.67 11 18.5 11C19.33 11 20 11.67 20 12.5V16C20 19.87 16.87 23 13 23C9.5 23 7 20.5 6 17.5L5 15.5C4.6 14.7 5.1 13.7 6 13.7C6.5 13.7 7 14 7.3 14.4L8 15.5V14Z' fill='%233B82F6' stroke='%230F172A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, grabbing !important;
+}
+
+.card-drag-handle {
+    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 3L12 0L15 3M9 21L12 24L15 21M3 9L0 12L3 15M21 9L24 12L21 15M12 2V22M2 12H22' stroke='%230F172A' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M12 2V22M2 12H22' stroke='%23FFFFFF' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") 12 12, move !important;
+}
+
+/* 移动端触摸手势与无限画布 */
+#canvas-view {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* 画板的圆点网格背景 */
+.dot-pattern {
+    background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    background-position: -12px -12px;
+}
+
+/* 桌面左侧竖向工具栏样式 */
+.tool-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    padding: 6px 2px;
+    border-radius: 12px;
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+}
+
+.tool-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.tool-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.tool-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748b;
+    margin-top: 3px;
+    transition: color 0.15s ease;
+}
+
+.tool-btn:hover .tool-label {
+    color: #0f172a;
+}
+
+/* 移动端响应式侧边栏抽屉与触摸优化 */
+@media (max-width: 640px) {
+    #canvas-sidebar {
+        width: 16rem !important; /* 256px 宽抽屉 */
+        transform: translateX(-110%);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 6px 0 28px rgba(0, 0, 0, 0.18);
+        z-index: 70 !important;
+        padding: 1rem 0.75rem !important;
+        gap: 0.5rem !important;
+        align-items: stretch !important;
+    }
+    #canvas-sidebar.mobile-open {
+        transform: translateX(0) !important;
+    }
+    #canvas-sidebar .tool-btn {
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        gap: 0.85rem !important;
+        padding: 0.65rem 0.85rem !important;
+        border-radius: 0.85rem !important;
+        background-color: #f8fafc;
+        border: 1px solid #f1f5f9;
+    }
+    #canvas-sidebar .tool-btn:active {
+        background-color: #e2e8f0 !important;
+        transform: scale(0.98);
+    }
+    #canvas-sidebar .tool-label {
+        font-size: 0.875rem !important;
+        font-weight: 600 !important;
+        color: #1e293b !important;
+        margin-top: 0 !important;
+    }
+    .board-card {
+        touch-action: manipulation;
+    }
+}
+
+/* 卡片基础样式：禁止在坐标与位移属性上使用全局过渡，防止拖拽产生 150ms 滞后迟缓 */
+.card-item {
+    will-change: transform, left, top;
+    user-select: text;
+}
+
+/* 卡片拖拽时的极致 60/120FPS 瞬时跟随样式 (强制关闭所有 CSS 过渡) */
+.card-dragging,
+.card-item.card-dragging,
+.column-container.card-dragging {
+    transition: none !important;
+    opacity: 0.95;
+    box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.22), 0 10px 10px -5px rgba(0, 0, 0, 0.08) !important;
+    z-index: 999 !important;
+    pointer-events: none;
+}
+
+/* 卡片选中与聚焦高亮 */
+.card-selected {
+    box-shadow: 0 0 0 2px #3b82f6, 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* contenteditable 占位符 */
+.card-editor:empty:before {
+    content: attr(data-placeholder);
+    color: #94a3b8;
+    font-style: italic;
+    pointer-events: none;
+    display: block;
+}
+
+/* 富文本内容样式 */
+.card-editor {
+    outline: none;
+    word-break: break-word;
+}
+
+.card-editor h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+}
+
+.card-editor h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+}
+
+.card-editor h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+}
+
+.card-editor p {
+    margin-bottom: 0.35rem;
+}
+
+/* 中划线 / 删除线垂直居中修复 */
+.card-editor s,
+.card-editor strike,
+.card-editor del,
+.card-editor [style*="line-through"] {
+    text-decoration: none !important;
+    background-image: linear-gradient(to right, currentColor 100%, transparent 0);
+    background-position: 0 50%;
+    background-size: 100% 1.5px;
+    background-repeat: repeat-x;
+    display: inline;
+}
+
+.card-editor h1 s,
+.card-editor h1 strike,
+.card-editor h1 del,
+.card-editor h1 [style*="line-through"] {
+    background-size: 100% 2.4px;
+    background-position: 0 51%;
+}
+
+.card-editor h2 s,
+.card-editor h2 strike,
+.card-editor h2 del,
+.card-editor h2 [style*="line-through"] {
+    background-size: 100% 2px;
+    background-position: 0 51%;
+}
+
+.card-editor h3 s,
+.card-editor h3 strike,
+.card-editor h3 del,
+.card-editor h3 [style*="line-through"] {
+    background-size: 100% 1.8px;
+    background-position: 0 51%;
+}
+
+.card-editor ul {
+    list-style-type: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-editor ol {
+    list-style-type: decimal;
+    padding-left: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-editor blockquote {
+    border-left: 3px solid #94a3b8;
+    padding-left: 0.75rem;
+    color: #64748b;
+    font-style: italic;
+    margin: 0.4rem 0;
+}
+
+/* 选中文本颜色 */
+::selection {
+    background: #bfdbfe;
+    color: #1e3a8a;
+}
+
+/* 格式化浮动工具栏动画 */
+.formatting-toolbar {
+    animation: fadeInToolbar 0.15s ease-out;
+}
+
+@keyframes fadeInToolbar {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 6px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Column 容器样式 (Milanote 风格) */
+.column-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* 拖拽悬停至 Column 上的高亮吸附反馈 */
+.column-drag-over {
+    border: 2px dashed #3b82f6 !important;
+    background-color: #eff6ff !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18), 0 10px 15px -3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* To-do 卡片项动画 */
+.todo-checkbox:checked + span {
+    text-decoration: line-through;
+    color: #94a3b8;
+}
+
+/* 色卡样式 (Pantone Swatch) */
+.color-swatch-card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+}
+
+/* 响应式视频容器 (16:9) */
+.video-responsive-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.video-responsive-container iframe,
+.video-responsive-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
