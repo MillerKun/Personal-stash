@@ -17,6 +17,7 @@ markdown_extensions:
   - md_in_html
 nav:
   - 首页: index.md
+  - 📚 互动图书库: books.md
   - 业界经典必读:
     - 🎯《非对称微恐 FPS 关卡实战手册》(猎杀对决+进化2): articles/Asymmetric_Horror_FPS_Level_Design.md
     - 《门的难题》：用一扇门看懂游戏开发全工种: articles/The_Door_Problem.md

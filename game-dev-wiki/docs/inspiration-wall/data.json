@@ -1,0 +1,74 @@
+{
+  "items": {
+    "root": {
+      "id": "root",
+      "type": "board",
+      "name": "主页",
+      "cards": [
+        {
+          "id": "_starter_board_1",
+          "type": "board",
+          "targetBoardId": "_starter_board_1",
+          "title": "设计灵感库",
+          "icon": "ph-sparkle",
+          "badgeColor": "#8b5cf6",
+          "x": 2700,
+          "y": 2700,
+          "width": 170
+        },
+        {
+          "id": "_starter_note_1",
+          "type": "text",
+          "content": "<h1>🌟 欢迎使用灵感墙</h1><p>这是一个 <b>Milanote 风格</b> 的无限平移白板：</p><ul><li><b>双击画板块</b> 即可进入子画板。</li><li>左侧栏随时添加 <b>笔记、分组列、待办、色卡、视频、图片与链接</b>。</li><li>支持手机端流畅查阅与多端静默云同步！</li></ul>",
+          "bg": "#fef9c3",
+          "textColor": "#713f12",
+          "borderColor": "#fef08a",
+          "x": 2920,
+          "y": 2680,
+          "width": 320
+        },
+        {
+          "id": "_starter_todo_1",
+          "type": "todo",
+          "title": "今日待办",
+          "x": 2700,
+          "y": 2900,
+          "width": 280,
+          "items": [
+            { "id": "_t1", "text": "在电脑上规划画板布局", "done": true },
+            { "id": "_t2", "text": "手机端随时随地查阅", "done": false }
+          ]
+        },
+        {
+          "id": "_starter_color_1",
+          "type": "color",
+          "name": "ULTRAMARINE BLUE",
+          "color": "#3B82F6",
+          "x": 3020,
+          "y": 2900,
+          "width": 200
+        }
+      ],
+      "parentId": null
+    },
+    "_starter_board_1": {
+      "id": "_starter_board_1",
+      "type": "board",
+      "name": "设计灵感库",
+      "cover": null,
+      "cards": [
+        {
+          "id": "_sub_note_demo",
+          "type": "text",
+          "content": "<h3>🎨 设计子画板</h3><p>这里是独立的二级白板空间，可以无限嵌套更多子画板与灵感素材！</p>",
+          "bg": "#ffffff",
+          "x": 2800,
+          "y": 2800,
+          "width": 280
+        }
+      ],
+      "parentId": "root"
+    }
+  },
+  "currentViewId": "root"
+}

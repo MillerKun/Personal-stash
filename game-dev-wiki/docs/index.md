@@ -4,23 +4,47 @@ hide:
   - toc
 ---
 
-# 🎮 欢迎来到游戏开发与 GDC 中文私人智库
+# 🎮 欢迎来到个人游戏开发与知识智库 (Personal Stash)
 
-> 这是您的专属游戏开发知识库。汇聚全球顶尖 GDC 演讲与业界经典文献，所有长文均已转化为**“高浓度精编 + Mermaid 架构图 + 完整折叠原稿”**的双层深度专栏。
+> 这是您的专属综合创作与知识工作台。汇聚**经典互动图书平台、Milanote 风格无限灵感白板、全球顶尖 GDC 演讲与业界经典文献**，全系统支持电脑/手机全端同步与沉浸阅读。
+
+---
+
+## 🚀 核心工作台与互动平台 (Interactive Platforms)
+
+<div class="grid cards" markdown>
+
+-   :material-book-open-page-variant: **📚 经典游戏设计互动图书库**
+    
+    ---
+    
+    集成《游戏设计艺术》(Jesse Schell) 与《通关！游戏设计之道》(Scott Rogers) 完整高清原著，内置**懒加载图像引擎、双语速查、缩放控制与随堂 Q&A 问答系统**。
+    
+    [:octicons-arrow-right-24: 进入图书中心](books.md)
+
+-   :material-view-dashboard-outline: **💡 灵感墙 (Inspiration Wall)**
+
+    ---
+    
+    Milanote 风格的无限白板！支持多级画板嵌套、9 种原生卡片、移动端专属快捷抽屉与 GitHub Gist 跨设备静默云同步。
+    
+    [:octicons-arrow-up-right-24: 打开无限白板](inspiration-wall/index.html){ target="_blank" }
+
+-   :material-target-account: **🔥 特别企划：非对称微恐关卡手册**
+
+    ---
+    
+    专为《猎杀：对决》声学陷阱 + 《进化2》立体非对称动线定制的万字关卡实战与白盒测试指南。
+    
+    [:octicons-arrow-right-24: 立即阅读](articles/Asymmetric_Horror_FPS_Level_Design.md)
+
+</div>
 
 ---
 
 ## 🌟 业界经典必读 (Industry Classics)
 
 <div class="grid cards" markdown>
-
--   :material-target-account: **🔥 特别企划：非对称微恐 FPS 关卡实战手册**
-    
-    ---
-    
-    量身定制：《猎杀：对决》声学陷阱 + 《进化2》立体非对称动线 + 空间心理学开工指南。
-    
-    [:octicons-arrow-right-24: 立即阅读](articles/Asymmetric_Horror_FPS_Level_Design.md)
 
 -   :material-mushroom: **任天堂“起承转合”关卡法**
     
@@ -114,7 +138,7 @@ hide:
 
     ---
     
-    全程 0 剪辑！索尼圣莫尼卡如何在无缝长镜头下完美融合 3A 叙事、战斗与后台加载。
+    全程 0 剪辑！索尼圣莫尼卡如何在无缝长镜头下完美融合 3A 叙事、战斗与后台 50GB 场景加载。
     
     [:octicons-arrow-right-24: 立即阅读](videos/2019-03-22_God_Of_War_No_Cut_Camera.md)
 
@@ -159,10 +183,3 @@ hide:
     [:octicons-arrow-right-24: 立即阅读](videos/2016-09-26_You_Don_t_Need_a_F_ing_Publisher_AI_Edition.md)
 
 </div>
-
----
-
-## 🤖 自动化智库运作模式
-
-本智库完全由 AI 智能代理驱动。您只需下达指令（提供游戏名字、话题、或 YouTube 链接），AI 就会全自动完成：
-**内容提炼 ➔ 流程图重构 ➔ 导航更新 ➔ Git 提交 ➔ GitHub Pages 全网自动部署**。
