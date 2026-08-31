@@ -42,7 +42,7 @@ html_content = """<!DOCTYPE html>
         
         /* Images Pane */
         #pdf-pane { flex: 2; position: relative; border-right: 1px solid var(--border-color); background: #dcdcdc; overflow-y: auto; text-align: center; scroll-behavior: smooth; --img-scale: 100%; padding-top: 10px;}
-        .page-img { width: var(--img-scale); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background-color: white; transition: width 0.2s ease;}
+        .page-img { width: var(--img-scale); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background-color: white; transition: width 0.2s ease; aspect-ratio: 2126/2938; }
         
         /* Zoom Controls */
         .zoom-controls { position: sticky; top: 10px; z-index: 100; display: inline-flex; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 20px; align-items: center; gap: 10px; margin-bottom: -40px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); backdrop-filter: blur(5px);}
@@ -94,17 +94,6 @@ html_content = """<!DOCTYPE html>
         .c-text { margin: 5px 0 0 0; color: #444; white-space: pre-wrap; line-height: 1.4;}
         
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            #main-layout { flex-direction: column; height: auto; }
-            body { overflow: auto; height: auto; }
-            #sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); max-height: 30vh; }
-            #pdf-pane { border-right: none; border-bottom: 1px solid var(--border-color); min-height: 50vh; overflow-y: visible;}
-            #tools-pane { min-width: 100%; max-width: 100%; }
-            .zoom-controls { bottom: 10px; top: auto; position: fixed; right: 10px; margin-bottom: 0; }
-        }
-
     </style>
 </head>
 <body>
@@ -152,18 +141,7 @@ html_content = """<!DOCTYPE html>
 
 <script>
     // Hardcoded simple mapping for first few chapters of Art of Game Design
-    const chapters = [
-        { id: 1, title: "第1章：太初之时，有设计师", page: 1 },
-        { id: 2, title: "第2章：设计师创造体验", page: 11 },
-        { id: 3, title: "第3章：体验发生于场地", page: 19 },
-        { id: 4, title: "第4章：体验从游戏中诞生", page: 25 },
-        { id: 5, title: "第5章：游戏由元素构成", page: 39 },
-        { id: 6, title: "第6章：元素支撑着主题", page: 51 },
-        { id: 7, title: "第7章：游戏始于一个理念", page: 61 },
-        { id: 8, title: "第8章：游戏通过迭代提高", page: 73 },
-        { id: 9, title: "第9章：游戏为玩家而生", page: 91 },
-        { id: 10, title: "第10章：体验在玩家的脑中", page: 107 }
-    ];
+    const chapters = __CHAPTERS_PLACEHOLDER__;
 
     const pageToChapter = {};
     for (let i = 0; i < chapters.length; i++) {
@@ -430,6 +408,11 @@ with open('qa_art.json', 'r', encoding='utf-8') as f:
 
 qa_js = json.dumps(qa_data, ensure_ascii=False)
 html_content = html_content.replace('__QA_DB_PLACEHOLDER__', qa_js)
+
+with open('chapters.json', 'r', encoding='utf-8') as f:
+    chapters_data = json.load(f)
+html_content = html_content.replace('__CHAPTERS_PLACEHOLDER__', json.dumps(chapters_data, ensure_ascii=False))
+
 
 with open(r"C:\Users\Eugen\.gemini\antigravity\scratch\game-design-art-study\index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
