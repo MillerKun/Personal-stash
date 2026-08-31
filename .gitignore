@@ -1,0 +1,10 @@
+# MkDocs build outputs
+site/
+**/site/
+.cache/
+__pycache__/
+*.pyc
+
+# OS generated
+.DS_Store
+Thumbs.db
