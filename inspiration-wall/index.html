@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>灵感墙 (Inspiration Wall)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-[#f4f5f8] overflow-hidden select-none text-gray-800 canvas-cursor">
+    
+    <!-- 顶部导航栏 (含多级画板面包屑、云同步与新建快捷操作) -->
+    <div class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-md shadow-xs border-b border-gray-200/90 px-3 sm:px-4 flex justify-between items-center z-50 h-14 sm:h-16">
+        <div class="flex items-center gap-2 sm:gap-4 flex-1 overflow-hidden">
+            <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer hover:opacity-80 transition-opacity flex-shrink-0" onclick="navigateTo('root')">
+                <i class="ph-fill ph-kanban text-xl sm:text-2xl text-blue-600"></i>
+                <span class="font-bold text-gray-900 text-base sm:text-lg">灵感墙</span>
+            </div>
+            <div class="h-4 sm:h-5 w-[1px] bg-gray-200 flex-shrink-0"></div>
+            <!-- 面包屑导航容器 -->
+            <div id="breadcrumbs" class="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-600 overflow-x-auto whitespace-nowrap py-1">
+                <!-- 由 JS 动态渲染 -->
+            </div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+            <div id="canvas-hint" class="text-xs text-gray-400 mr-2 hidden lg:flex items-center gap-2">
+                <span><i class="ph-bold ph-mouse-left-click"></i> 空白拖拽平移</span>
+                <span class="text-gray-300">|</span>
+                <span><i class="ph-bold ph-cursor-click"></i> 双击画板块进入</span>
+                <span class="text-gray-300">|</span>
+                <span><i class="ph-bold ph-sidebar-simple"></i> 左侧栏添加卡片</span>
+            </div>
+
+            <!-- 手机扫码与数据同步按钮 -->
+            <button id="sync-modal-btn" title="手机扫码与数据同步" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 sm:px-3 py-1.5 rounded-xl font-medium transition-all flex items-center gap-1.5 shadow-xs cursor-pointer text-xs sm:text-sm">
+                <span id="sync-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <i class="ph-bold ph-qr-code text-sm sm:text-base text-blue-600"></i>
+                <span class="hidden sm:inline">手机扫码 / 同步</span>
+            </button>
+
+            <!-- 新建画板按钮 -->
+            <button id="new-board-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-2.5 sm:px-3.5 py-1.5 rounded-xl font-medium transition-all flex items-center gap-1 shadow-xs cursor-pointer text-xs sm:text-sm">
+                <i class="ph-bold ph-plus text-sm sm:text-base"></i>
+                <span class="hidden xs:inline">新建画板</span>
+                <span class="xs:hidden">画板</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 统一无限画布视图 (Milanote 风格全白板架构，手机端与桌面端通用) -->
+    <div id="canvas-view" class="w-screen h-screen relative canvas-grab overflow-hidden pt-14 sm:pt-16">
+        
+        <!-- 移动端侧边栏遮罩背景 -->
+        <div id="mobile-sidebar-backdrop" class="hidden fixed inset-0 bg-black/40 z-[65] backdrop-blur-xs transition-opacity sm:hidden"></div>
+
+        <!-- Milanote 风格创作工具栏 (桌面常驻左侧，手机端支持浮动展开) -->
+        <aside id="canvas-sidebar" class="fixed top-14 sm:top-16 left-0 h-[calc(100vh-3.5rem)] sm:h-[calc(100vh-4rem)] w-18 bg-white/95 backdrop-blur-md border-r border-gray-200/90 shadow-sm z-[70] flex flex-col items-center py-3.5 gap-1.5 overflow-y-auto">
+            
+            <button id="tool-board" title="画板 / 文件夹 (Board)" class="tool-btn group">
+                <div class="tool-icon bg-cyan-50 text-cyan-600 group-hover:bg-cyan-100 group-hover:scale-105">
+                    <i class="ph-bold ph-kanban text-xl"></i>
+                </div>
+                <span class="tool-label">画板</span>
+            </button>
+
+            <button id="tool-note" title="便签笔记 (Note)" class="tool-btn group">
+                <div class="tool-icon bg-amber-50 text-amber-600 group-hover:bg-amber-100 group-hover:scale-105">
+                    <i class="ph-bold ph-note-pencil text-xl"></i>
+                </div>
+                <span class="tool-label">笔记</span>
+            </button>
+
+            <button id="tool-column" title="分组列 / 嵌套容器 (Column)" class="tool-btn group">
+                <div class="tool-icon bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 group-hover:scale-105">
+                    <i class="ph-bold ph-columns text-xl"></i>
+                </div>
+                <span class="tool-label">分组列</span>
+            </button>
+
+            <button id="tool-todo" title="待办清单 (To-do List)" class="tool-btn group">
+                <div class="tool-icon bg-blue-50 text-blue-600 group-hover:bg-blue-100 group-hover:scale-105">
+                    <i class="ph-bold ph-check-square-offset text-xl"></i>
+                </div>
+                <span class="tool-label">待办</span>
+            </button>
+
+            <button id="tool-heading" title="大标题文字 (Heading)" class="tool-btn group">
+                <div class="tool-icon bg-purple-50 text-purple-600 group-hover:bg-purple-100 group-hover:scale-105">
+                    <i class="ph-bold ph-text-t text-xl"></i>
+                </div>
+                <span class="tool-label">大标题</span>
+            </button>
+
+            <div class="w-10 h-[1px] bg-gray-200 my-1"></div>
+
+            <button id="tool-image" title="图片卡片 (Image)" class="tool-btn group">
+                <div class="tool-icon bg-rose-50 text-rose-600 group-hover:bg-rose-100 group-hover:scale-105">
+                    <i class="ph-bold ph-image text-xl"></i>
+                </div>
+                <span class="tool-label">图片</span>
+            </button>
+
+            <button id="tool-video" title="视频卡片 (B站 / YouTube / MP4)" class="tool-btn group">
+                <div class="tool-icon bg-sky-50 text-sky-600 group-hover:bg-sky-100 group-hover:scale-105">
+                    <i class="ph-bold ph-video text-xl"></i>
+                </div>
+                <span class="tool-label">视频</span>
+            </button>
+
+            <button id="tool-link" title="网页书签 (Web Link)" class="tool-btn group">
+                <div class="tool-icon bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 group-hover:scale-105">
+                    <i class="ph-bold ph-link text-xl"></i>
+                </div>
+                <span class="tool-label">链接</span>
+            </button>
+
+            <button id="tool-color" title="色卡 (Color Swatch)" class="tool-btn group">
+                <div class="tool-icon bg-orange-50 text-orange-600 group-hover:bg-orange-100 group-hover:scale-105">
+                    <i class="ph-bold ph-palette text-xl"></i>
+                </div>
+                <span class="tool-label">色卡</span>
+            </button>
+
+        </aside>
+
+        <!-- 手机端右下角悬浮展开工具栏按钮 (FAB) -->
+        <button id="mobile-sidebar-toggle" title="添加卡片" class="sm:hidden fixed bottom-6 right-6 w-14 h-14 rounded-full bg-blue-600 active:bg-blue-700 text-white shadow-2xl flex items-center justify-center z-[60] active:scale-95 transition-all cursor-pointer">
+            <i class="ph-bold ph-plus text-2xl"></i>
+        </button>
+
+        <!-- 无限画布区域 -->
+        <div id="board" class="absolute top-0 left-0 w-[6000px] h-[6000px] origin-top-left dot-pattern pl-4 sm:pl-20" style="transform: translate(-2500px, -2500px);">
+            <!-- 卡片将通过 JS 渲染在这里 -->
+        </div>
+    </div>
+
+    <!-- 全局浮动文本格式化工具栏 (Milanote 风格) -->
+    <div id="formatting-toolbar" class="hidden fixed bg-white/95 backdrop-blur-md border border-gray-200/90 shadow-2xl rounded-xl p-1.5 flex items-center gap-1 z-[200] select-none formatting-toolbar transition-all max-w-[95vw] overflow-x-auto">
+        <!-- 字号/段落类型 -->
+        <select id="fmt-block" class="text-xs font-medium bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-gray-700 hover:bg-gray-100 focus:outline-none cursor-pointer">
+            <option value="p">正文</option>
+            <option value="h1">大标题 (H1)</option>
+            <option value="h2">中标题 (H2)</option>
+            <option value="h3">小标题 (H3)</option>
+            <option value="blockquote">引用</option>
+        </select>
+
+        <div class="h-4 w-[1px] bg-gray-200 mx-0.5"></div>
+
+        <!-- 文本样式按钮 -->
+        <button id="fmt-bold" title="加粗 (Ctrl+B)" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm font-bold w-8 h-8 flex items-center justify-center transition-colors">
+            <b>B</b>
+        </button>
+        <button id="fmt-italic" title="斜体 (Ctrl+I)" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm italic w-8 h-8 flex items-center justify-center transition-colors">
+            <i>I</i>
+        </button>
+        <button id="fmt-underline" title="下划线 (Ctrl+U)" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm underline w-8 h-8 flex items-center justify-center transition-colors">
+            <u>U</u>
+        </button>
+        <button id="fmt-strike" title="删除线" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm line-through w-8 h-8 flex items-center justify-center transition-colors">
+            <s>S</s>
+        </button>
+
+        <div class="h-4 w-[1px] bg-gray-200 mx-0.5"></div>
+
+        <!-- 列表 -->
+        <button id="fmt-ul" title="无序列表" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center transition-colors">
+            <i class="ph-bold ph-list-bullets text-base"></i>
+        </button>
+        <button id="fmt-ol" title="有序列表" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center transition-colors">
+            <i class="ph-bold ph-list-numbers text-base"></i>
+        </button>
+
+        <div class="h-4 w-[1px] bg-gray-200 mx-0.5"></div>
+
+        <!-- 对齐方式 -->
+        <button id="fmt-align-left" title="左对齐" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center transition-colors">
+            <i class="ph-bold ph-text-align-left text-base"></i>
+        </button>
+        <button id="fmt-align-center" title="居中对齐" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center transition-colors">
+            <i class="ph-bold ph-text-align-center text-base"></i>
+        </button>
+
+        <div class="h-4 w-[1px] bg-gray-200 mx-0.5"></div>
+
+        <!-- 文字颜色选择器 -->
+        <div class="relative">
+            <button id="fmt-color-btn" title="文字颜色" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center gap-0.5 transition-colors">
+                <i class="ph-bold ph-text-aa text-base"></i>
+                <div id="fmt-color-indicator" class="w-3 h-1 bg-gray-800 rounded-full mt-2 absolute bottom-1"></div>
+            </button>
+            <div id="fmt-color-palette" class="hidden absolute top-full mt-1.5 left-0 bg-white border border-gray-200 shadow-xl rounded-xl p-2 grid grid-cols-5 gap-1.5 z-[210] w-44">
+                <!-- 颜色色块 -->
+            </div>
+        </div>
+
+        <!-- 卡片背景主题色选择器 -->
+        <div class="relative">
+            <button id="fmt-bg-btn" title="卡片背景颜色" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center transition-colors">
+                <i class="ph-bold ph-palette text-base text-amber-500"></i>
+            </button>
+            <div id="fmt-bg-palette" class="hidden absolute top-full mt-1.5 left-0 bg-white border border-gray-200 shadow-xl rounded-xl p-2 grid grid-cols-4 gap-1.5 z-[210] w-40">
+                <!-- 卡片主题色块 -->
+            </div>
+        </div>
+
+        <!-- 卡片宽度设置 -->
+        <div class="relative">
+            <button id="fmt-width-btn" title="卡片尺寸" class="p-1.5 text-gray-700 hover:bg-gray-100 rounded-lg text-sm w-8 h-8 flex items-center justify-center transition-colors">
+                <i class="ph-bold ph-arrows-out-line-horizontal text-base"></i>
+            </button>
+            <div id="fmt-width-menu" class="hidden absolute top-full mt-1.5 right-0 bg-white border border-gray-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1 z-[210] w-28 text-xs">
+                <button data-width="260" class="px-2.5 py-1.5 text-left hover:bg-gray-100 rounded-md">默认 (260px)</button>
+                <button data-width="380" class="px-2.5 py-1.5 text-left hover:bg-gray-100 rounded-md">中等 (380px)</button>
+                <button data-width="520" class="px-2.5 py-1.5 text-left hover:bg-gray-100 rounded-md">宽卡 (520px)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数据管理、手机扫码与静默多端同步模态框 (Sync & Mobile QR Modal) -->
+    <div id="sync-modal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 transform transition-all border border-gray-100 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
+                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <i class="ph-fill ph-qr-code text-blue-600 text-xl"></i> 手机扫码直达与数据同步
+                </h2>
+                <button id="sync-modal-close" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg">
+                    <i class="ph-bold ph-x text-base"></i>
+                </button>
+            </div>
+
+            <!-- 功能面板 -->
+            <div class="space-y-5 text-sm">
+                
+                <!-- 手机扫码直达区域 (局域网 Wi-Fi 直连 + GitHub Pages 随时访问) -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50/60 border border-blue-200/80 rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-blue-950 flex items-center gap-1.5">
+                            <i class="ph-fill ph-device-mobile-camera text-blue-600 text-lg"></i> 手机扫码直接打开
+                        </span>
+                        <span class="text-[11px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-medium">即扫即开</span>
+                    </div>
+                    <p class="text-xs text-blue-900/80 mb-3">
+                        手机与电脑连入同一 Wi-Fi，打开手机相机或微信扫一扫下方二维码即可直接进入画板：
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-4 bg-white p-3.5 rounded-xl border border-blue-100 shadow-2xs">
+                        <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=http%3A%2F%2F192.168.1.2%3A8000%2Finspiration-wall%2F" alt="手机扫码二维码" class="w-32 h-32 rounded-lg border border-gray-200 bg-white p-1">
+                        
+                        <div class="flex flex-col justify-center gap-1.5 flex-1 text-xs">
+                            <div class="font-semibold text-gray-800 flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 局域网服务运行中
+                            </div>
+                            <div class="text-[11px] text-gray-500 font-mono bg-gray-50 p-1.5 rounded border border-gray-200 break-all select-all">
+                                http://192.168.1.2:8000/inspiration-wall/
+                            </div>
+                            <p class="text-[11px] text-gray-400 mt-1">
+                                💡 若在户外或使用移动流量，也可以使用 GitHub Pages 永久公网地址。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 方案 1: 导出为项目数据文件 (推送到 GitHub 手机立即自动读取) -->
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="font-bold text-gray-800 flex items-center gap-1.5">
+                            <i class="ph-bold ph-file-arrow-down text-base text-blue-600"></i> 静默导出为 data.json
+                        </span>
+                        <span class="text-[11px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-md font-semibold">推荐 ⭐</span>
+                    </div>
+                    <p class="text-xs text-gray-600 mb-3 leading-relaxed">
+                        一键下载 <code class="bg-white px-1 py-0.5 rounded border border-gray-200 font-mono">data.json</code> 并放入项目根目录。推送到 GitHub 后，<strong>手机打开网址将自动默认呈现你的全部画板</strong>！
+                    </p>
+                    <div class="flex gap-2">
+                        <button id="export-data-json-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer">
+                            <i class="ph-bold ph-download-simple"></i> 一键导出 data.json
+                        </button>
+                        <button id="pull-repo-data-btn" class="bg-white hover:bg-blue-50 text-blue-600 border border-blue-200 px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer">
+                            <i class="ph-bold ph-arrows-clockwise"></i> 从仓库拉取更新
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 方案 2: GitHub Gist 私有云静默自动同步 (全自动无感多端互通) -->
+                <div class="border border-gray-200 rounded-xl p-4 bg-white">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="font-bold text-gray-800 flex items-center gap-1.5">
+                            <i class="ph-bold ph-arrows-left-right text-base text-indigo-600"></i> GitHub Gist 私有云静默实时同步
+                        </span>
+                        <span class="text-[11px] text-gray-500 font-medium">全自动</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-3 leading-relaxed">
+                        绑定 GitHub Personal Access Token (PAT) 后，<strong>在电脑上每次编辑画板都会在后台静默自动同步到你的私有 Gist</strong>，手机端输入相同 Token 自动实现多端实时无缝更新！
+                    </p>
+                    <div class="space-y-2.5">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-gray-600 mb-1">GitHub Token (需勾选 gist 权限)</label>
+                            <input type="password" id="gist-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full border border-gray-300 rounded-lg px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-gray-600 mb-1">Gist ID (留空将自动新建)</label>
+                            <input type="text" id="gist-id-input" placeholder="自动生成或粘贴已有 Gist ID" class="w-full border border-gray-300 rounded-lg px-3 py-1.5 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono">
+                        </div>
+                        <div class="flex gap-2 pt-1">
+                            <button id="save-gist-sync-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 shadow-xs transition-colors cursor-pointer">
+                                <i class="ph-bold ph-check"></i> 启用静默云同步
+                            </button>
+                            <button id="test-gist-pull-btn" class="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer">
+                                <i class="ph-bold ph-cloud-arrow-down"></i> 从云端立即拉取
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 方案 3: 本地离线文件备份与恢复 -->
+                <div class="border border-gray-200 rounded-xl p-4 bg-white">
+                    <span class="font-bold text-gray-800 flex items-center gap-1.5 mb-1.5">
+                        <i class="ph-bold ph-floppy-disk text-base text-gray-600"></i> 本地离线备份与恢复
+                    </span>
+                    <p class="text-xs text-gray-500 mb-3">
+                        将当前全部画板数据导出为 <code class="font-mono bg-gray-100 px-1 py-0.5 rounded">.json</code> 文件保存在本地，或者通过导入历史备份文件进行快速覆盖恢复。
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <button id="export-backup-btn" class="bg-gray-800 hover:bg-black text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer shadow-xs">
+                            <i class="ph-bold ph-export"></i> 导出备份文件
+                        </button>
+                        <label class="bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer">
+                            <i class="ph-bold ph-upload-simple"></i> 导入备份文件
+                            <input type="file" id="import-backup-file" accept=".json" class="hidden">
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 通用多媒体/画板配置输入模态框 (图片 / 视频 / 链接 / 画板自定义封面) -->
+    <div id="media-modal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 transform transition-all border border-gray-100 max-h-[90vh] overflow-y-auto">
+            <h2 id="mediaModalTitle" class="text-lg sm:text-xl font-bold mb-4 text-gray-900 flex items-center gap-2">
+                <!-- JS 动态填入标题 -->
+            </h2>
+            
+            <div id="mediaModalBody" class="space-y-4">
+                <!-- JS 动态注入表单控件 -->
+            </div>
+
+            <div class="flex justify-end gap-3 mt-6">
+                <button id="mediaModalCancel" class="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">取消</button>
+                <button id="mediaModalConfirm" class="px-5 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-sm transition-colors">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
