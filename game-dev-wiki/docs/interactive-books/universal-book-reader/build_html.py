@@ -1,9 +1,9 @@
-html_content = """<!DOCTYPE html>
+﻿html_content = """<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通关！游戏设计之道 - 通用图书学习平台</title>
+    <title>閫氬叧锛佹父鎴忚璁′箣閬?- 閫氱敤鍥句功瀛︿範骞冲彴</title>
     <style>
         :root {
             --bg-color: #f5f5f7;
@@ -42,7 +42,7 @@ html_content = """<!DOCTYPE html>
         
         /* Images Pane */
         #pdf-pane { flex: 2; position: relative; border-right: 1px solid var(--border-color); background: #dcdcdc; overflow-y: auto; text-align: center; scroll-behavior: smooth; --img-scale: 100%; padding-top: 10px;}
-        .page-img { width: var(--img-scale); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background-color: white; transition: width 0.2s ease;}
+        .page-img { width: var(--img-scale); display: block; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background-color: white; transition: width 0.2s ease; aspect-ratio: 480/720; }
         
         /* Zoom Controls */
         .zoom-controls { position: sticky; top: 10px; z-index: 100; display: inline-flex; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 20px; align-items: center; gap: 10px; margin-bottom: -40px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); backdrop-filter: blur(5px);}
@@ -105,13 +105,13 @@ html_content = """<!DOCTYPE html>
 <body>
 
     <header>
-        <h1>📖 通用图书学习平台 - 当前书籍：通关！游戏设计之道</h1>
+        <h1>馃摉 閫氱敤鍥句功瀛︿範骞冲彴 - 褰撳墠涔︾睄锛氶€氬叧锛佹父鎴忚璁′箣閬?/h1>
     </header>
 
     <div id="main-layout">
         <div id="sidebar">
             <div class="search-box">
-                <input type="text" id="search" placeholder="搜索章节..." onkeyup="renderChapters()">
+                <input type="text" id="search" placeholder="鎼滅储绔犺妭..." onkeyup="renderChapters()">
             </div>
             <div id="chapter-list"></div>
         </div>
@@ -129,12 +129,12 @@ html_content = """<!DOCTYPE html>
         
         <div id="tools-pane">
             <div class="tools-header">
-                <h3 id="tools-chapter-title" style="margin: 0; font-size: 1.1rem; color: var(--primary-color);">第1章</h3>
-                <button id="btn-learn-toggle" class="btn-learned" onclick="toggleLearned()">📖 标记已学</button>
+                <h3 id="tools-chapter-title" style="margin: 0; font-size: 1.1rem; color: var(--primary-color);">绗?绔?/h3>
+                <button id="btn-learn-toggle" class="btn-learned" onclick="toggleLearned()">馃摉 鏍囪宸插</button>
             </div>
             
             <div class="tools-nav">
-                <button class="tab-btn active" onclick="switchTab('qa')">📝 问答探讨</button>
+                <button class="tab-btn active" onclick="switchTab('qa')">馃摑 闂瓟鎺㈣</button>
             </div>
             
             <div class="tools-content">
@@ -146,19 +146,19 @@ html_content = """<!DOCTYPE html>
 <script>
     // Mock chapters for "Level Up! The Guide to Great Video Game Design"
     const chapters = [
-        { id: 1, title: "第1关：欢迎来到游戏行业", page: 16 },
-        { id: 2, title: "第2关：创意", page: 44 },
-        { id: 3, title: "第3关：编写故事", page: 59 },
-        { id: 4, title: "第4关：游戏文档", page: 86 },
-        { id: 5, title: "第5关：游戏控制与界面", page: 113 },
-        { id: 6, title: "第6关：关卡设计", page: 160 },
-        { id: 7, title: "第7关：战斗设计", page: 203 },
-        { id: 8, title: "第8关：各种游戏元素", page: 227 },
-        { id: 9, title: "第9关：多人游戏", page: 264 },
-        { id: 10, title: "第10关：音乐和声音", page: 319 },
-        { id: 11, title: "第11关：过场动画", page: 389 },
-        { id: 12, title: "第12关：继续制作", page: 493 },
-        { id: 13, title: "第13关：发行与营销", page: 529 }
+        { id: 1, title: "绗?鍏筹細娆㈣繋鏉ュ埌娓告垙琛屼笟", page: 16 },
+        { id: 2, title: "绗?鍏筹細鍒涙剰", page: 44 },
+        { id: 3, title: "绗?鍏筹細缂栧啓鏁呬簨", page: 59 },
+        { id: 4, title: "绗?鍏筹細娓告垙鏂囨。", page: 86 },
+        { id: 5, title: "绗?鍏筹細娓告垙鎺у埗涓庣晫闈?, page: 113 },
+        { id: 6, title: "绗?鍏筹細鍏冲崱璁捐", page: 160 },
+        { id: 7, title: "绗?鍏筹細鎴樻枟璁捐", page: 203 },
+        { id: 8, title: "绗?鍏筹細鍚勭娓告垙鍏冪礌", page: 227 },
+        { id: 9, title: "绗?鍏筹細澶氫汉娓告垙", page: 264 },
+        { id: 10, title: "绗?0鍏筹細闊充箰鍜屽０闊?, page: 319 },
+        { id: 11, title: "绗?1鍏筹細杩囧満鍔ㄧ敾", page: 389 },
+        { id: 12, title: "绗?2鍏筹細缁х画鍒朵綔", page: 493 },
+        { id: 13, title: "绗?3鍏筹細鍙戣涓庤惀閿€", page: 529 }
     ];
 
     const pageToChapter = {};
@@ -257,7 +257,7 @@ html_content = """<!DOCTYPE html>
                 <div class="chapter-item ${isL ? 'is-learned' : ''} ${isActive ? 'active' : ''}" 
                      onclick="jumpToChapter(${c.id})">
                     <span>${c.title}</span>
-                    ${isL ? '<span style="color:#34c759">✅</span>' : ''}
+                    ${isL ? '<span style="color:#34c759">鉁?/span>' : ''}
                 </div>
             `;
         });
@@ -288,10 +288,10 @@ html_content = """<!DOCTYPE html>
         document.getElementById('tools-chapter-title').textContent = c.title;
         const btn = document.getElementById('btn-learn-toggle');
         if (state.learned.includes(id)) {
-            btn.textContent = "✅ 已学";
+            btn.textContent = "鉁?宸插";
             btn.classList.add('active');
         } else {
-            btn.textContent = "📖 标记已学";
+            btn.textContent = "馃摉 鏍囪宸插";
             btn.classList.remove('active');
         }
 
@@ -307,7 +307,7 @@ html_content = """<!DOCTYPE html>
 
     function renderToolsContent(id) {
         const cQA = qaDB.filter(q => q.chapter === id);
-        let qHtml = cQA.length ? '' : '<p style="color:#666">本章暂无测试题。</p>';
+        let qHtml = cQA.length ? '' : '<p style="color:#666">鏈珷鏆傛棤娴嬭瘯棰樸€?/p>';
         cQA.forEach(q => {
             if (q.type === 'obj') {
                 const savedAns = state.answers[q.id];
@@ -320,11 +320,11 @@ html_content = """<!DOCTYPE html>
                     return `<li class="${cls}" onclick="ansObj('${q.id}', ${o.id})">${o.t}</li>`;
                 }).join('');
                 
-                let feedback = savedAns ? `<div class="feedback" style="display:block; background: ${savedAns===q.ans?'rgba(52, 199, 89,0.1)':'rgba(255, 59, 48,0.1)'}; border-left: 3px solid ${savedAns===q.ans?'#34c759':'#ff3b30'}">${savedAns===q.ans?'✅ 正确！':'❌ 错误。'} ${q.exp}</div>` : '';
+                let feedback = savedAns ? `<div class="feedback" style="display:block; background: ${savedAns===q.ans?'rgba(52, 199, 89,0.1)':'rgba(255, 59, 48,0.1)'}; border-left: 3px solid ${savedAns===q.ans?'#34c759':'#ff3b30'}">${savedAns===q.ans?'鉁?姝ｇ‘锛?:'鉂?閿欒銆?} ${q.exp}</div>` : '';
                 
                 qHtml += `
                     <div class="qa-card">
-                        <h4 class="qa-title"><span style="background:rgba(0,122,255,0.1);color:#007aff;padding:2px 6px;border-radius:3px;font-size:0.8rem;margin-right:8px">客观题</span>${q.text}</h4>
+                        <h4 class="qa-title"><span style="background:rgba(0,122,255,0.1);color:#007aff;padding:2px 6px;border-radius:3px;font-size:0.8rem;margin-right:8px">瀹㈣棰?/span>${q.text}</h4>
                         <ul class="options">${opts}</ul>
                         ${feedback}
                     </div>
@@ -333,18 +333,18 @@ html_content = """<!DOCTYPE html>
                 const cmts = state.comments[q.id] || [];
                 const cmtHtml = cmts.map(c => `
                     <div class="c-item">
-                        <div><span class="c-author">👤 ${c.user}</span><span class="c-time">${c.time}</span></div>
+                        <div><span class="c-author">馃懁 ${c.user}</span><span class="c-time">${c.time}</span></div>
                         <p class="c-text">${c.txt}</p>
                     </div>
                 `).join('');
                 
                 qHtml += `
                     <div class="qa-card">
-                        <h4 class="qa-title"><span class="tag-open">🔓 开放性</span>${q.text}</h4>
+                        <h4 class="qa-title"><span class="tag-open">馃敁 寮€鏀炬€?/span>${q.text}</h4>
                         <div class="comment-box">
-                            <input type="text" id="usr-${q.id}" class="c-input" placeholder="昵称 (选填)" />
-                            <textarea id="txt-${q.id}" class="c-input" placeholder="写下你的见解..."></textarea>
-                            <button class="btn-submit" onclick="addComment('${q.id}')">发布看法</button>
+                            <input type="text" id="usr-${q.id}" class="c-input" placeholder="鏄电О (閫夊～)" />
+                            <textarea id="txt-${q.id}" class="c-input" placeholder="鍐欎笅浣犵殑瑙佽В..."></textarea>
+                            <button class="btn-submit" onclick="addComment('${q.id}')">鍙戝竷鐪嬫硶</button>
                         </div>
                         <div class="c-list">${cmtHtml}</div>
                     </div>
@@ -362,9 +362,9 @@ html_content = """<!DOCTYPE html>
     }
 
     function addComment(qId) {
-        const u = document.getElementById(`usr-${qId}`).value.trim() || '匿名玩家';
+        const u = document.getElementById(`usr-${qId}`).value.trim() || '鍖垮悕鐜╁';
         const t = document.getElementById(`txt-${qId}`).value.trim();
-        if(!t) return alert("内容不能为空");
+        if(!t) return alert("鍐呭涓嶈兘涓虹┖");
         if(!state.comments[qId]) state.comments[qId] = [];
         state.comments[qId].unshift({ user: u, txt: t, time: new Date().toLocaleString() });
         saveState();
