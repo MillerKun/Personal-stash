@@ -238,7 +238,7 @@
                 }
             }
         }, {
-            root: document.getElementById('pdf-pane'),
+            root: window.innerWidth <= 768 ? null : document.getElementById('pdf-pane'),
             threshold: [0.1, 0.5]
         });
         

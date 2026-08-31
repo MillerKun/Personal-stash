@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎮 游戏设计艺术 (第2版) - 沉浸式互动学习</title>
+    <title>馃幃 娓告垙璁捐鑹烘湳 (绗?鐗? - 娌夋蹈寮忎簰鍔ㄥ涔?/title>
     <style>
         :root {
             --bg-color: #f5f5f7;
@@ -99,13 +99,13 @@
 <body>
 
     <header>
-        <h1>🎮 游戏设计艺术 (第2版) - 沉浸式互动学习</h1>
+        <h1>馃幃 娓告垙璁捐鑹烘湳 (绗?鐗? - 娌夋蹈寮忎簰鍔ㄥ涔?/h1>
     </header>
 
     <div id="main-layout">
         <div id="sidebar">
             <div class="search-box">
-                <input type="text" id="search" placeholder="搜索章节..." onkeyup="renderChapters()">
+                <input type="text" id="search" placeholder="鎼滅储绔犺妭..." onkeyup="renderChapters()">
             </div>
             <div id="chapter-list"></div>
         </div>
@@ -123,13 +123,13 @@
         
         <div id="tools-pane">
             <div class="tools-header">
-                <h3 id="tools-chapter-title" style="margin: 0; font-size: 1.1rem; color: var(--primary-color);">第1章</h3>
-                <button id="btn-learn-toggle" class="btn-learned" onclick="toggleLearned()">📖 标记已学</button>
+                <h3 id="tools-chapter-title" style="margin: 0; font-size: 1.1rem; color: var(--primary-color);">绗?绔?/h3>
+                <button id="btn-learn-toggle" class="btn-learned" onclick="toggleLearned()">馃摉 鏍囪宸插</button>
             </div>
             
             <div class="tools-nav">
-                <button class="tab-btn active" onclick="switchTab('lenses')">🔍 本章透镜</button>
-                <button class="tab-btn" onclick="switchTab('qa')">📝 问答探讨</button>
+                <button class="tab-btn active" onclick="switchTab('lenses')">馃攳 鏈珷閫忛暅</button>
+                <button class="tab-btn" onclick="switchTab('qa')">馃摑 闂瓟鎺㈣</button>
             </div>
             
             <div class="tools-content">
@@ -153,13 +153,13 @@
     }
 
     const lenses = [
-        { id: 1, chapter: 1, name: "情感透镜", open: true, qs: ["我希望玩家体验到哪些情感？", "他们实际上体验到了什么情感？", "如何缩小两者差距？"] },
-        { id: 2, chapter: 2, name: "本质体验透镜", open: true, qs: ["我希望玩家获得的体验是什么？", "这个体验的核心本质是什么？", "我的游戏如何捕捉这种本质？"] },
-        { id: 3, chapter: 3, name: "场地透镜", open: false, qs: ["玩家会在什么样的环境中玩我的游戏？", "这个环境会对体验产生什么影响？"] },
-        { id: 4, chapter: 4, name: "惊喜透镜", open: false, qs: ["我的游戏在哪些地方能给玩家惊喜？"] },
-        { id: 5, chapter: 4, name: "乐趣透镜", open: true, qs: ["我的游戏好玩吗？为什么？"] },
-        { id: 6, chapter: 5, name: "元素四面体透镜", open: false, qs: ["机制、故事、美学、技术是否协调一致并支持主题？"] },
-        { id: 7, chapter: 6, name: "全息透镜", open: false, qs: ["游戏中的每一个元素是否都反映了整体主题？"] },
+        { id: 1, chapter: 1, name: "鎯呮劅閫忛暅", open: true, qs: ["鎴戝笇鏈涚帺瀹朵綋楠屽埌鍝簺鎯呮劅锛?, "浠栦滑瀹為檯涓婁綋楠屽埌浜嗕粈涔堟儏鎰燂紵", "濡備綍缂╁皬涓よ€呭樊璺濓紵"] },
+        { id: 2, chapter: 2, name: "鏈川浣撻獙閫忛暅", open: true, qs: ["鎴戝笇鏈涚帺瀹惰幏寰楃殑浣撻獙鏄粈涔堬紵", "杩欎釜浣撻獙鐨勬牳蹇冩湰璐ㄦ槸浠€涔堬紵", "鎴戠殑娓告垙濡備綍鎹曟崏杩欑鏈川锛?] },
+        { id: 3, chapter: 3, name: "鍦哄湴閫忛暅", open: false, qs: ["鐜╁浼氬湪浠€涔堟牱鐨勭幆澧冧腑鐜╂垜鐨勬父鎴忥紵", "杩欎釜鐜浼氬浣撻獙浜х敓浠€涔堝奖鍝嶏紵"] },
+        { id: 4, chapter: 4, name: "鎯婂枩閫忛暅", open: false, qs: ["鎴戠殑娓告垙鍦ㄥ摢浜涘湴鏂硅兘缁欑帺瀹舵儕鍠滐紵"] },
+        { id: 5, chapter: 4, name: "涔愯叮閫忛暅", open: true, qs: ["鎴戠殑娓告垙濂界帺鍚楋紵涓轰粈涔堬紵"] },
+        { id: 6, chapter: 5, name: "鍏冪礌鍥涢潰浣撻€忛暅", open: false, qs: ["鏈哄埗銆佹晠浜嬨€佺編瀛︺€佹妧鏈槸鍚﹀崗璋冧竴鑷村苟鏀寔涓婚锛?] },
+        { id: 7, chapter: 6, name: "鍏ㄦ伅閫忛暅", open: false, qs: ["娓告垙涓殑姣忎竴涓厓绱犳槸鍚﹂兘鍙嶆槧浜嗘暣浣撲富棰橈紵"] },
     ];
 
     const qaDB = [{"id": "qa_1", "chapter": 1, "type": "open", "text": "【深度探讨】第一章提到“倾听”是设计师最重要的技能。在面对玩家极其愤怒的负面评价时，你如何剥离情绪，倾听出他们真正痛点所在？"}, {"id": "qa_2", "chapter": 1, "type": "obj", "text": "设计师需要倾听的五个主要对象中，不包括以下哪项？", "opts": [{"id": 1, "t": "团队"}, {"id": 2, "t": "受众"}, {"id": 3, "t": "游戏本身"}, {"id": 4, "t": "竞争对手"}], "ans": 4, "exp": "主要倾听对象是团队、受众、游戏、客户和自己。"}, {"id": "qa_3", "chapter": 2, "type": "open", "text": "【本质体验透镜】“我希望玩家获得的体验是什么？” 很多开发者沉迷于制作机制，而忘了体验。举例说明一个机制很复杂，但核心体验却很糟糕的游戏。"}, {"id": "qa_4", "chapter": 2, "type": "open", "text": "【惊喜透镜】你计划如何在你的下一个游戏项目中，在玩家以为游戏已经结束时，给他们带来意想不到的惊喜？"}, {"id": "qa_5", "chapter": 5, "type": "obj", "text": "关于“元素四面体”，哪一个是正确的？", "opts": [{"id": 1, "t": "技术是最重要的基础，决定了其他三个"}, {"id": 2, "t": "机制、故事、美学、技术四个元素地位同等，互相影响"}, {"id": 3, "t": "故事可以脱离机制独立存在，互不干涉"}], "ans": 2, "exp": "四面体的四个顶点是等价的，牵一发而动全身。"}, {"id": "qa_6", "chapter": 5, "type": "open", "text": "【元素四面体分析】选择近期热门的一款 3A 大作，详细分析它的“美学”和“机制”是如何互相支撑的？如果有割裂感，割裂在哪里？"}, {"id": "qa_7", "chapter": 8, "type": "open", "text": "【迭代透镜】“如果你做出来的第一版就很好玩，那你多半是抄的。” 你如何理解“八次迭代法则”？在资金紧张的情况下，如何高效低成本地进行早期迭代？"}, {"id": "qa_8", "chapter": 8, "type": "obj", "text": "在原型制作阶段，最应该避免的错误是？", "opts": [{"id": 1, "t": "使用手绘的纸质原型"}, {"id": 2, "t": "过早地加入精美的模型和特效"}, {"id": 3, "t": "频繁地改变核心机制"}], "ans": 2, "exp": "过早加入美术资源会增加沉没成本，阻碍后续的修改。"}, {"id": "qa_9", "chapter": 10, "type": "open", "text": "【心智模型透镜】玩家在脑海中会为游戏建立一个运作模型。当这个模型与游戏的实际机制不符时，玩家就会产生挫败感。请举例说明如何利用 UI 引导，修正玩家的心智模型。"}, {"id": "qa_10", "chapter": 12, "type": "open", "text": "【机制解析】机制不仅仅是跳跃和攻击。以《文明》或《模拟城市》为例，分析其中的“资源经济系统”是如何驱动玩家产生心流的。"}, {"id": "qa_11", "chapter": 13, "type": "open", "text": "【平衡性透镜】不对称对抗游戏（如《黎明杀机》）的平衡性极难把握。你认为对于这类游戏，“数值绝对平衡”和“体验平衡”哪个更重要？为什么？"}, {"id": "qa_12", "chapter": 16, "type": "open", "text": "【兴趣曲线】任何体验都应该有起伏。分析一场 90 分钟的足球比赛，或者一部好莱坞动作电影，画出其兴趣曲线，并将其对应到游戏关卡设计中。"}, {"id": "qa_13", "chapter": 18, "type": "open", "text": "【间接控制】“别告诉玩家该怎么做，让他们自己觉得那是他们自己的主意。” 分享一个通过灯光、声音或地形进行完美“间接控制”的游戏关卡案例。"}];
@@ -228,7 +228,7 @@
                 }
             }
         }, {
-            root: document.getElementById('pdf-pane'),
+            root: window.innerWidth <= 768 ? null : document.getElementById('pdf-pane'),
             threshold: [0.1, 0.5]
         });
         
@@ -247,7 +247,7 @@
                 <div class="chapter-item ${isL ? 'is-learned' : ''} ${isActive ? 'active' : ''}" 
                      onclick="jumpToChapter(${c.id})">
                     <span>${c.title}</span>
-                    ${isL ? '<span style="color:#4caf50">✅</span>' : ''}
+                    ${isL ? '<span style="color:#4caf50">鉁?/span>' : ''}
                 </div>
             `;
         });
@@ -278,10 +278,10 @@
         document.getElementById('tools-chapter-title').textContent = c.title;
         const btn = document.getElementById('btn-learn-toggle');
         if (state.learned.includes(id)) {
-            btn.textContent = "✅ 已学";
+            btn.textContent = "鉁?宸插";
             btn.classList.add('active');
         } else {
-            btn.textContent = "📖 标记已学";
+            btn.textContent = "馃摉 鏍囪宸插";
             btn.classList.remove('active');
         }
 
@@ -306,14 +306,14 @@
 
     function renderToolsContent(id) {
         const cLenses = lenses.filter(l => l.chapter === id || l.chapter === id - 1 || l.chapter === id + 1).slice(0, 3);
-        let lHtml = cLenses.length ? '' : '<p style="color:#666">本章暂无对应透镜展示。</p>';
+        let lHtml = cLenses.length ? '' : '<p style="color:#666">鏈珷鏆傛棤瀵瑰簲閫忛暅灞曠ず銆?/p>';
         cLenses.forEach(l => {
-            let qs = l.qs.map(q => `<p class="lens-q">💬 ${q}</p>`).join('');
+            let qs = l.qs.map(q => `<p class="lens-q">馃挰 ${q}</p>`).join('');
             lHtml += `
                 <div class="lens-card">
                     <div class="lens-num">${l.id}</div>
                     <h4 class="lens-title">${l.name}</h4>
-                    ${l.open ? '<span class="tag-open">🔓 开放性探讨</span>' : ''}
+                    ${l.open ? '<span class="tag-open">馃敁 寮€鏀炬€ф帰璁?/span>' : ''}
                     <div>${qs}</div>
                 </div>
             `;
@@ -321,7 +321,7 @@
         document.getElementById('tab-lenses').innerHTML = lHtml;
 
         const cQA = qaDB.filter(q => q.chapter === id);
-        let qHtml = cQA.length ? '' : '<p style="color:#666">本章暂无测试题。</p>';
+        let qHtml = cQA.length ? '' : '<p style="color:#666">鏈珷鏆傛棤娴嬭瘯棰樸€?/p>';
         cQA.forEach(q => {
             if (q.type === 'obj') {
                 const savedAns = state.answers[q.id];
@@ -334,11 +334,11 @@
                     return `<li class="${cls}" onclick="ansObj('${q.id}', ${o.id})">${o.t}</li>`;
                 }).join('');
                 
-                let feedback = savedAns ? `<div class="feedback" style="display:block; background: ${savedAns===q.ans?'rgba(52, 199, 89,0.1)':'rgba(255, 59, 48,0.1)'}; border-left: 3px solid ${savedAns===q.ans?'#34c759':'#ff3b30'}">${savedAns===q.ans?'✅ 正确！':'❌ 错误。'} ${q.exp}</div>` : '';
+                let feedback = savedAns ? `<div class="feedback" style="display:block; background: ${savedAns===q.ans?'rgba(52, 199, 89,0.1)':'rgba(255, 59, 48,0.1)'}; border-left: 3px solid ${savedAns===q.ans?'#34c759':'#ff3b30'}">${savedAns===q.ans?'鉁?姝ｇ‘锛?:'鉂?閿欒銆?} ${q.exp}</div>` : '';
                 
                 qHtml += `
                     <div class="qa-card">
-                        <h4 class="qa-title"><span style="background:rgba(98,0,238,0.1);color:#6200ee;padding:2px 6px;border-radius:3px;font-size:0.8rem;margin-right:8px">客观题</span>${q.text}</h4>
+                        <h4 class="qa-title"><span style="background:rgba(98,0,238,0.1);color:#6200ee;padding:2px 6px;border-radius:3px;font-size:0.8rem;margin-right:8px">瀹㈣棰?/span>${q.text}</h4>
                         <ul class="options">${opts}</ul>
                         ${feedback}
                     </div>
@@ -347,18 +347,18 @@
                 const cmts = state.comments[q.id] || [];
                 const cmtHtml = cmts.map(c => `
                     <div class="c-item">
-                        <div><span class="c-author">👤 ${c.user}</span><span class="c-time">${c.time}</span></div>
+                        <div><span class="c-author">馃懁 ${c.user}</span><span class="c-time">${c.time}</span></div>
                         <p class="c-text">${c.txt}</p>
                     </div>
                 `).join('');
                 
                 qHtml += `
                     <div class="qa-card">
-                        <h4 class="qa-title"><span class="tag-open">🔓 开放性</span>${q.text}</h4>
+                        <h4 class="qa-title"><span class="tag-open">馃敁 寮€鏀炬€?/span>${q.text}</h4>
                         <div class="comment-box">
-                            <input type="text" id="usr-${q.id}" class="c-input" placeholder="昵称 (选填)" />
-                            <textarea id="txt-${q.id}" class="c-input" placeholder="写下你的见解..."></textarea>
-                            <button class="btn-submit" onclick="addComment('${q.id}')">发布看法</button>
+                            <input type="text" id="usr-${q.id}" class="c-input" placeholder="鏄电О (閫夊～)" />
+                            <textarea id="txt-${q.id}" class="c-input" placeholder="鍐欎笅浣犵殑瑙佽В..."></textarea>
+                            <button class="btn-submit" onclick="addComment('${q.id}')">鍙戝竷鐪嬫硶</button>
                         </div>
                         <div class="c-list">${cmtHtml}</div>
                     </div>
@@ -376,9 +376,9 @@
     }
 
     function addComment(qId) {
-        const u = document.getElementById(`usr-${qId}`).value.trim() || '匿名玩家';
+        const u = document.getElementById(`usr-${qId}`).value.trim() || '鍖垮悕鐜╁';
         const t = document.getElementById(`txt-${qId}`).value.trim();
-        if(!t) return alert("内容不能为空");
+        if(!t) return alert("鍐呭涓嶈兘涓虹┖");
         if(!state.comments[qId]) state.comments[qId] = [];
         state.comments[qId].unshift({ user: u, txt: t, time: new Date().toLocaleString() });
         saveState();
