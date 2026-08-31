@@ -396,7 +396,7 @@ with open('qa_levelup.json', 'r', encoding='utf-8') as f:
 qa_js = json.dumps(qa_data, ensure_ascii=False)
 html_content = html_content.replace('__QA_DB_PLACEHOLDER__', qa_js)
 
-with open(r"C:\Users\Eugen\.gemini\antigravity\scratch\universal-book-reader\index.html", "w", encoding="utf-8") as f:
+with open(r"index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
 print("Created universal index.html with rich QA")
